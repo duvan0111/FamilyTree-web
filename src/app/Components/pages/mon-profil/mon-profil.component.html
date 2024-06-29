@@ -1,0 +1,161 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="mon-profil"
+  tabindex="-1"
+  aria-labelledby="mon-profil-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mon-profil-label">Mon profil</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- allow edit slide -->
+        <p class="">
+          <mat-slide-toggle
+            color="warn"
+            [(ngModel)]="allowEdit"
+            labelPosition="before"
+            [checked]="allowEdit"
+            >Modifier</mat-slide-toggle
+          >
+        </p>
+        <div class="row">
+          <!-- pseudo -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Pseudo</mat-label>
+              <input
+                [(ngModel)]="pseudoRegister"
+                [errorStateMatcher]="matcher"
+                [formControl]="pseudoRegisterFormcontrol"
+                matInput
+                placeholder="Pseudo"
+                [readonly]="true"
+              />
+            </mat-form-field>
+          </div>
+
+          <!-- name -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nom</mat-label>
+              <input
+                [(ngModel)]="name"
+                [errorStateMatcher]="matcher"
+                [formControl]="nameFormcontrol"
+                [readonly]="!allowEdit"
+                matInput
+                placeholder="Votre nom"
+              />
+            </mat-form-field>
+          </div>
+
+          <!-- sexe -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Sexe</mat-label>
+              <mat-select
+                [disabled]="true"
+                [(ngModel)]="sexe"
+                [errorStateMatcher]="matcher"
+                placeholder="Selectionner une valeur"
+              >
+                <mat-option [value]="'homme'">Masculin</mat-option>
+                <mat-option [value]="'femme'">Féminin</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Téléphone -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Téléphone (9 chiffres)</mat-label>
+              <input
+                [readonly]="!allowEdit"
+                [(ngModel)]="tel"
+                [errorStateMatcher]="matcher"
+                [formControl]="telFormcontrol"
+                inputmode="tel"
+                matInput
+                placeholder="Téléphone"
+              />
+            </mat-form-field>
+          </div>
+          <!-- password -->
+          <div class="">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Mot de passe (8 caractères)</mat-label>
+              <input
+                [(ngModel)]="passwordRegister"
+                [errorStateMatcher]="matcher"
+                [formControl]="passwordRegisterFormcontrol"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                placeholder="Password"
+              />
+              <button
+                class="text-secondary"
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <!-- confirm password -->
+          <div class="">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Confirmer le mot de passe</mat-label>
+              <input
+                [(ngModel)]="password_confirmation"
+                [errorStateMatcher]="matcher"
+                [formControl]="passwordConfirmationFormcontrol"
+                matInput
+                type="password"
+                placeholder="Mot de passe"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Fermer
+          </button>
+          <button
+            color="warn"
+            mat-raised-button
+            class=""
+            [disabled]="isLoading_register"
+          >
+            <div class="d-flex align-items-center">
+              <span
+                *ngIf="isLoading_register"
+                class="spinner-border spinner-border-sm me-2"
+              ></span>
+              {{ isLoading_register ? "Mise à jour" : "Sauvegarder" }}
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

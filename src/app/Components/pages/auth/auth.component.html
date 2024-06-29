@@ -1,0 +1,286 @@
+<div class="" style="background-color: #f2f4f5">
+  <section
+    class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+  >
+    <div class="container">
+      <div class="row justify-content-center">
+        <div
+          class="col-lg-10 col-md-12 d-flex flex-column align-items-center justify-content-center"
+        >
+          <!-- switcher -->
+          <div class="mb-4 d-flex flex-row fs-6">
+            <button
+              class="me-2 rounded-pill {{
+                isRegisterVisible ? 'text-secondary' : 'border-danger'
+              }} "
+              color="{{ isRegisterVisible ? '' : 'warn' }}"
+              mat-stroked-button
+              (click)="activeLoginForm()"
+            >
+              Connexion
+            </button>
+            <button
+              class="me-2 rounded-pill {{
+                isRegisterVisible ? 'border-danger' : 'text-secondary '
+              }} "
+              color="{{ isRegisterVisible ? 'warn' : '' }}"
+              mat-stroked-button
+              (click)="activeRegisterForm()"
+            >
+              Inscription
+            </button>
+          </div>
+
+          <div class="card mb-0 w-100 flex-md-row border-0 shadow-lg h-100">
+            <!-- Section 1 -->
+            <div
+              class="col-md-6 p-4 d-flex flex-column align-items-center justify-content-center"
+            >
+              <div class="mb-3">
+                <img
+                  routerLink="/"
+                  src="assets/images/logo-without-slogan.svg"
+                  width="150"
+                  class=""
+                  alt=""
+                  srcset=""
+                />
+              </div>
+
+              <!-- slogan -->
+              <div class="mb-3 text-center">
+                <span class="text-secondary text-center"
+                  >Chaque famille a une histoire, écrivez la vôtre</span
+                >
+              </div>
+
+              <div class="mt-3">
+                <h4 class="fw-bold fs-5">Bon retour</h4>
+              </div>
+            </div>
+
+            <!-- divider -->
+            <hr />
+
+            <div class="col-md-6 p-4 form-wrapper">
+              <!-- Section login ----------------------------------------------------------------------------- -->
+              <div
+                *ngIf="!isDisplay"
+                class="col-md-12 form {{ isRegisterVisible ? '' : 'active' }}"
+              >
+                <div class="card-body pt-5 pb-4">
+                  <h4 class="text-dark fw-bold fs-5 text-center mb-4">
+                    Se connecter
+                  </h4>
+                  <p class="small text-gray text-center">
+                    Entrez votre identifiant & mot de passe pour continuer
+                  </p>
+                  <div class="row">
+                    <!-- pseudo -->
+                    <mat-form-field appearance="outline" class="w-100 mt-2">
+                      <mat-label>Pseudo</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="pseudo"
+                        [errorStateMatcher]="matcher"
+                        [formControl]="pseudoFormcontrol"
+                        placeholder="Identifiant"
+                      />
+                      <mat-icon class="text-secondary" matPrefix
+                        >account_circle</mat-icon
+                      >
+                    </mat-form-field>
+
+                    <!-- passsword -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Mot de passe</mat-label>
+                      <input
+                        [(ngModel)]="password"
+                        [errorStateMatcher]="matcher"
+                        [formControl]="passwordFormcontrol"
+                        matInput
+                        [type]="hide ? 'password' : 'text'"
+                        placeholder="Password"
+                      />
+                      <mat-icon class="text-secondary" matPrefix>lock</mat-icon>
+                      <button
+                        type="button"
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                      >
+                        <mat-icon class="text-secondary">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                      </button>
+                    </mat-form-field>
+
+                    <!-- button -->
+                    <div class="col-md-12 text-center mt-1">
+                      <button
+                        (click)="onSubmit()"
+                        color="warn"
+                        mat-raised-button
+                        class="w-100 {{ isLoading_login ? '' : '' }}"
+                        [disabled]="isLoading_login"
+                      >
+                        <div class="d-flex align-items-center">
+                          <span
+                            *ngIf="isLoading_login"
+                            class="spinner-border spinner-border-sm me-2"
+                          ></span>
+                          {{ isLoading_login ? "Connexion" : "Se connecter" }}
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section register --------------------------------------------------------------------------- -->
+              <div
+                *ngIf="isDisplay"
+                class="col-md-12 form {{ isRegisterVisible ? 'active' : '' }}"
+              >
+                <div class="card-body pt-5 pb-4">
+                  <h4 class="text-dark fw-bold fs-5 text-center mb-4">
+                    S'inscrire
+                  </h4>
+                  <p class="small text-gray text-center pb-2">
+                    Remplir le formulaire et valider
+                  </p>
+                  <div class="row">
+                    <!-- pseudo -->
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Pseudo</mat-label>
+                        <input
+                          [(ngModel)]="pseudoRegister"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="pseudoRegisterFormcontrol"
+                          matInput
+                          placeholder="Pseudo"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <!-- name -->
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Nom</mat-label>
+                        <input
+                          [(ngModel)]="name"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="nameFormcontrol"
+                          matInput
+                          placeholder="Votre nom"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <!-- sexe -->
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Sexe</mat-label>
+                        <mat-select
+                          [(ngModel)]="sexe"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="sexeFormcontrol"
+                          placeholder="Selectionner une valeur"
+                        >
+                          <mat-option [value]="'homme'">Masculin</mat-option>
+                          <mat-option [value]="'femme'">Féminin</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- Téléphone -->
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Téléphone (9 chiffres)</mat-label>
+                        <input
+                          [(ngModel)]="tel"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="telFormcontrol"
+                          inputmode="tel"
+                          matInput
+                          placeholder="Téléphone"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <!-- password -->
+                    <div class="">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Mot de passe (8 caractères)</mat-label>
+                        <input
+                          [(ngModel)]="passwordRegister"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="passwordRegisterFormcontrol"
+                          matInput
+                          [type]="hide ? 'password' : 'text'"
+                          placeholder="Password"
+                        />
+                        <mat-icon class="text-secondary" matPrefix
+                          >lock</mat-icon
+                        >
+                        <button
+                          class="text-secondary"
+                          mat-icon-button
+                          matSuffix
+                          (click)="hide = !hide"
+                          [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide"
+                        >
+                          <mat-icon>{{
+                            hide ? "visibility_off" : "visibility"
+                          }}</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </div>
+                    <!-- confirm password -->
+                    <div class="">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Confirmer le mot de passe</mat-label>
+                        <input
+                          [(ngModel)]="password_confirmation"
+                          [errorStateMatcher]="matcher"
+                          [formControl]="passwordConfirmationFormcontrol"
+                          matInput
+                          type="password"
+                          placeholder="Mot de passe"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <!-- button -->
+                    <div class="col-md-12 text-center">
+                      <button
+                        (click)="register()"
+                        color="warn"
+                        mat-raised-button
+                        class="w-100"
+                        [disabled]="isLoading_register"
+                      >
+                        <div class="d-flex align-items-center">
+                          <span
+                            *ngIf="isLoading_register"
+                            class="spinner-border spinner-border-sm me-2"
+                          ></span>
+                          {{
+                            isLoading_register ? "Inscription" : "S'inscrire"
+                          }}
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

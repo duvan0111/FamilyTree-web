@@ -1,0 +1,96 @@
+<!-- ======= Header ======= -->
+<header
+  id="header"
+  class="d-flex align-items-center sticky-top border-1 border-secondary-subtle border-bottom"
+>
+  <div
+    class="ms-5 me-5 d-flex align-items-center justify-content-between w-100"
+  >
+    <div class="d-flex align-items-center">
+      <!-- Logo -->
+      <a href="#" class="logo me-3">
+        <img src="../../../../assets/images/logo.svg" alt="" />
+      </a>
+
+      <!-- Title -->
+      <span class="fw-bold fs-4 text-secondary-dark me-3">FamilyTree</span>
+    </div>
+
+    <div id="navbar" class="navbar shadow-none">
+      <ul class="p-2">
+        <!-- user ===================================== -->
+        <li class="w-100 d-none d-lg-flex">
+          <button
+            class="w-100"
+            mat-button
+            [matMenuTriggerFor]="menu"
+            style="height: 56px !important"
+          >
+            <div class="d-flex flex-row align-items-center p-2">
+              <!-- text -->
+              <div class="d-flex flex-column me-2">
+                <!-- user name -->
+                <span class="">Salut {{ user_json.user.name }}</span>
+                <!-- role -->
+                <span class="small text-secondary">0 Familles</span>
+              </div>
+
+              <!-- icon -->
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#mon-profil"
+              mat-menu-item
+              class="bg-light-blue"
+            >
+              Mon profil
+            </button>
+            <button (click)="logout()" mat-menu-item class="bg-light-blue">
+              Déconnexion
+            </button>
+          </mat-menu>
+        </li>
+
+        <!-- for mobile -->
+        <li class="d-lg-none">
+          <!-- text -->
+          <div class="d-flex flex-column p-2 mb-2 justify-content-center">
+            <!-- user name -->
+            <span class="">Salut {{ user_json.user.name }}</span>
+            <!-- role -->
+            <span class="small text-secondary">0 Familles</span>
+          </div>
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#mon-profil"
+            mat-menu-item
+            class="bg-light-blue mb-2"
+          >
+            Mon profil
+          </button>
+          <button (click)="logout()" mat-menu-item class="bg-light-blue">
+            Déconnexion
+          </button>
+        </li>
+      </ul>
+      <i class="bi mobile-nav-toggle bi-x d-none" (click)="toggle_menu()"></i>
+    </div>
+    <button
+      class="mobile-nav-toggle"
+      type="button"
+      mat-icon-button
+      (click)="toggle_menu()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- .navbar -->
+  </div>
+</header>
+<!-- End Header -->
+
+<!-- mon profil section -->
+<app-mon-profil [user]="user_json"></app-mon-profil>

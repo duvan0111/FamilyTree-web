@@ -1,0 +1,178 @@
+<!-- title -->
+<div
+  class="fs-4 text-dark mb-2 sticky-top t-86 d-flex align-items-center bg-white pb-1"
+  style="z-index: 996 !important"
+>
+  <button
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasExample"
+    aria-controls="offcanvasExample"
+    mat-icon-button
+    class="me-2 d-lg-none"
+  >
+    <mat-icon>sort</mat-icon>
+  </button>
+  <span> Familles </span>
+</div>
+
+<div class="container-fluid">
+  <!-- content -->
+  <div class="row mb-3 text-center">
+    <!-- if user has 0 family -->
+
+    <!-- img -->
+    <div class="mb-4 mt-5">
+      <img
+        src="../../../../assets/images/home_family.svg"
+        class="img-fluid home-family-svg"
+        alt=""
+        srcset=""
+      />
+    </div>
+
+    <!-- text -->
+    <div class="mb-3">
+      <!-- title -->
+      <span class="fs-4 text-center">Bienvenu a nouveau</span>
+
+      <p class="text-secondary mt-2">
+        Commence par rejoindre une famille, ou crée la tienne
+      </p>
+    </div>
+
+    <!-- buttons -->
+    <div class="">
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#rejoindre-famille-modal"
+        class="btn btn-outline-primary"
+      >
+        Rejoindre une famille
+      </button>
+      <span class="p-2"></span>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#creer-famille-modal"
+        class="btn btn-outline-danger"
+      >
+        Créer une famille
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- rejoindre famille modal -->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="rejoindre-famille-modal"
+  tabindex="-1"
+  aria-labelledby="rejoindre-famille-modalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rejoindre-famille-modalLabel">
+          Rejoindre une famille
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Code de la famille</mat-label>
+          <input
+            [formControl]="codefamilleFormcontrol"
+            [errorStateMatcher]="matcher"
+            [(ngModel)]="codefamille"
+            matInput
+            placeholder="Entrer le code de la famille"
+          />
+          <mat-error
+            class="small mt-2"
+            *ngIf="codefamilleFormcontrol.hasError('required')"
+          >
+            Veuillez saisir le code
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fermer
+        </button>
+        <button type="button" class="btn btn-primary">Rejoindre</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- creer famille modal -->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="creer-famille-modal"
+  tabindex="-1"
+  aria-labelledby="creer-famille-modalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="creer-famille-modalLabel">
+          creer une famille
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- imgage selector -->
+        <div class="mb-4">
+          <app-image-selector-one></app-image-selector-one>
+        </div>
+
+        <!-- nom famille -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nom de la famille</mat-label>
+          <input
+            [formControl]="nomFamilleFormcontrol"
+            [errorStateMatcher]="matcher"
+            [(ngModel)]="nomFamille"
+            matInput
+            placeholder="Entrer le code de la famille"
+          />
+          <mat-error
+            class="small mt-2"
+            *ngIf="codefamilleFormcontrol.hasError('required')"
+          >
+            Veuillez saisir un nom
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fermer
+        </button>
+        <button [disabled]="isLoading_create_family" (click)="creerFamille()" type="button" class="btn btn-primary">
+          <span
+            *ngIf="isLoading_create_family"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          {{ isLoading_create_family ? "" : "Créer" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

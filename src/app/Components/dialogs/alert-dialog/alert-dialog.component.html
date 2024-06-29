@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <!-- icon -->
+  <div class="text-center">
+    <span>
+      <i
+        class="bi bi-check-circle-fill text-success text-center"
+        style="font-size: 60px"
+      ></i>
+    </span>
+  </div>
+  <div
+    class="fw-bold text-start d-flex justify-content-center pt-2 pb-2 ps-3 pe-3 align-items-center"
+  >
+    <span class="fs-3">{{ title }}</span>
+  </div>
+
+  <!-- content -->
+  <mat-dialog-content class="mat-typography pb-0 ps-2 pe-2 mt-1">
+    <p class="text-dark text-center pb-3">
+      {{ message }}
+    </p>
+
+    <div class="mt-2 mb-4">
+      <span>Vos identifiants de connexion:</span>
+    </div>
+
+    <div class="d-flex align-items-center flex-column mb-3">
+      <span class="me-2 text-secondary">Pseudo: </span>
+      <span class="text-dark fw-semibold">{{ pseudo }}</span>
+    </div>
+
+    <div class="d-flex align-items-center flex-column mb-3">
+      <span class="me-2 text-secondary">Mot de passe: </span>
+      <span class="text-dark fw-semibold">{{ pseudo }}</span>
+    </div>
+  </mat-dialog-content>
+
+  <!-- button -->
+  <mat-dialog-actions align="center" class="">
+    <button
+      class="w-100 text-success border-success mb-3"
+      mat-stroked-button
+      [mat-dialog-close]="true"
+    >
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>

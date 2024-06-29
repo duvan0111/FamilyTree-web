@@ -1,0 +1,145 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-3">
+  <div class="row">
+    <!-- mobile side bar ===================================================== -->
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">FamilyTree</h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <mat-list>
+          <div mat-subheader class="fw-semibold">Espace utilisateur</div>
+
+          <!-- Famille -->
+          <button
+            class="w-100 d-flex justify-content-start mb-2"
+            mat-button
+            routerLink="family"
+            routerLinkActive="nav-item-active"
+          >
+            <mat-list-item
+              ><mat-icon matListItemIcon>dashboard</mat-icon>
+              <div matListItemTitle>Famille</div></mat-list-item
+            >
+          </button>
+
+          <!-- Membre -->
+          <button
+            class="w-100 d-flex justify-content-start mb-2"
+            mat-button
+            routerLink="members"
+            routerLinkActive="nav-item-active"
+          >
+            <mat-list-item
+              ><mat-icon matListItemIcon>people</mat-icon>
+              <div matListItemTitle>Membres</div></mat-list-item
+            >
+          </button>
+
+          <!-- Evenement -->
+          <button
+            class="w-100 d-flex justify-content-start mb-2"
+            mat-button
+            routerLink="event"
+            routerLinkActive="nav-item-active"
+          >
+            <mat-list-item
+              ><mat-icon matListItemIcon>calendar_month</mat-icon>
+              <div matListItemTitle>Evenement</div></mat-list-item
+            >
+          </button>
+
+          <!-- Arbre genalogique -->
+          <button
+            class="w-100 d-flex justify-content-start mb-2"
+            mat-button
+            routerLink="tree"
+            routerLinkActive="nav-item-active"
+          >
+            <mat-list-item
+              ><mat-icon matListItemIcon>home</mat-icon>
+              <div matListItemTitle>Arbre généalogique</div></mat-list-item
+            >
+          </button>
+        </mat-list>
+      </div>
+    </div>
+
+    <!-- sidebar web ========================================================= -->
+    <div class="col-lg-3 d-none d-lg-block">
+      <mat-list>
+        <div mat-subheader class="fw-semibold">Espace utilisateur</div>
+
+        <!-- Famille -->
+        <button
+          class="w-100 d-flex justify-content-start mb-2"
+          mat-button
+          routerLink="family"
+          routerLinkActive="nav-item-active"
+        >
+          <mat-list-item
+            ><mat-icon matListItemIcon>dashboard</mat-icon>
+            <div matListItemTitle>Famille</div></mat-list-item
+          >
+        </button>
+
+        <!-- Membre -->
+        <button
+          class="w-100 d-flex justify-content-start mb-2"
+          mat-button
+          routerLink="members"
+          routerLinkActive="nav-item-active"
+        >
+          <mat-list-item
+            ><mat-icon matListItemIcon>people</mat-icon>
+            <div matListItemTitle>Membres</div></mat-list-item
+          >
+        </button>
+
+        <!-- Evenement -->
+        <button
+          class="w-100 d-flex justify-content-start mb-2"
+          mat-button
+          routerLink="event"
+          routerLinkActive="nav-item-active"
+        >
+          <mat-list-item
+            ><mat-icon matListItemIcon>calendar_month</mat-icon>
+            <div matListItemTitle>Evenement</div></mat-list-item
+          >
+        </button>
+
+        <!-- Arbre genalogique -->
+        <button
+          class="w-100 d-flex justify-content-start mb-2"
+          mat-button
+          routerLink="tree"
+          routerLinkActive="nav-item-active"
+        >
+          <mat-list-item
+            ><mat-icon matListItemIcon>home</mat-icon>
+            <div matListItemTitle>Arbre généalogique</div></mat-list-item
+          >
+        </button>
+      </mat-list>
+    </div>
+
+    <!-- content -->
+    <div class="col-lg-9 pt-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<!-- <app-footer></app-footer> -->
