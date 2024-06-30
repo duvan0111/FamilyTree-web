@@ -12,7 +12,7 @@ export class ImageSelectorOneComponent {
     private _imageService: ImageService
   ) { }
 
-  selectedImage: string | ArrayBuffer | null | undefined = "../../../assets/images/profile.svg";
+  selectedImage: string | ArrayBuffer | null | undefined = undefined;
 
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
@@ -35,4 +35,5 @@ export class ImageSelectorOneComponent {
       }
     }
   }
+
 }

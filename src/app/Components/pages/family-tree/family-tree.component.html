@@ -1,0 +1,70 @@
+<div class="d-flex flex-column mb-4">
+  <!-- back button -->
+  <div class="mb-3">
+    <button
+      (click)="_router.navigateByUrl('/home/family')"
+      mat-button
+      class="bg-light small rounded-2"
+    >
+      <mat-icon>arrow_back</mat-icon>
+      Retour
+    </button>
+  </div>
+
+  <!-- header -->
+  <div
+    class="text-dark mb-2 sticky-top t-86 d-flex align-items-center bg-white pb-1 mb-2"
+    style="z-index: 996 !important"
+  >
+    <button
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasExample"
+      aria-controls="offcanvasExample"
+      mat-icon-button
+      class="me-2 d-lg-none"
+    >
+      <mat-icon>sort</mat-icon>
+    </button>
+
+    <span class="flex-fill fs-4"> Famille Leuna </span>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#fullscreen-tree-modal"
+      mat-icon-button
+      color="warn"
+    >
+      <mat-icon>fullscreen</mat-icon>
+    </button>
+  </div>
+
+  <!-- tree default-->
+  <div id="tree" class="container-fluid mt-3 flex-fill"></div>
+
+  <!-- full screen -->
+  <div
+    class="modal fade"
+    id="fullscreen-tree-modal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="fullscreen-tree-modalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fullscreen-tree-modalLabel">
+            Arbre généalogique - Nom de la famille
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" id="fullscreen-tree">...</div>
+      </div>
+    </div>
+  </div>
+</div>

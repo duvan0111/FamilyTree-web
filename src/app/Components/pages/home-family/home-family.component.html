@@ -12,51 +12,150 @@
   >
     <mat-icon>sort</mat-icon>
   </button>
-  <span> Familles </span>
+  <span class="flex-fill"> Familles </span>
+
+  <!-- buttons mg + -->
+  <div *ngIf="hasFamilly" class="d-none d-sm-block">
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#rejoindre-famille-modal"
+      class="btn btn-outline-primary"
+    >
+      Rejoindre une famille
+    </button>
+    <span class="p-2"></span>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#creer-famille-modal"
+      class="btn btn-outline-danger"
+    >
+      Créer une famille
+    </button>
+  </div>
+
+  <!-- button sm -->
+  <div *ngIf="hasFamilly" class="d-sm-none">
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#rejoindre-famille-modal"
+      class="btn btn-outline-primary"
+    >
+      ->
+      <i class="bi bi-people-fill"></i>
+    </button>
+    <span class="p-1"></span>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#creer-famille-modal"
+      class="btn btn-outline-danger"
+    >
+      +
+      <i class="bi bi-people"></i>
+    </button>
+  </div>
 </div>
 
 <div class="container-fluid">
   <!-- content -->
   <div class="row mb-3 text-center">
-    <!-- if user has 0 family -->
-
-    <!-- img -->
-    <div class="mb-4 mt-5">
-      <img
-        src="../../../../assets/images/home_family.svg"
-        class="img-fluid home-family-svg"
-        alt=""
-        srcset=""
-      />
+    <!-- if isLoading get familly -->
+    <div
+      *ngIf="isLoading_get_family"
+      class="d-flex justify-content-center mt-5"
+    >
+      <span class="spinner-border text-secondary"></span>
     </div>
-
-    <!-- text -->
-    <div class="mb-3">
-      <!-- title -->
-      <span class="fs-4 text-center">Bienvenu a nouveau</span>
-
-      <p class="text-secondary mt-2">
-        Commence par rejoindre une famille, ou crée la tienne
-      </p>
-    </div>
-
-    <!-- buttons -->
-    <div class="">
-      <button
-        data-bs-toggle="modal"
-        data-bs-target="#rejoindre-famille-modal"
-        class="btn btn-outline-primary"
-      >
-        Rejoindre une famille
-      </button>
-      <span class="p-2"></span>
-      <button
-        data-bs-toggle="modal"
-        data-bs-target="#creer-famille-modal"
-        class="btn btn-outline-danger"
-      >
-        Créer une famille
-      </button>
+    <div *ngIf="!isLoading_get_family" class="p-0">
+      <!-- if user has 0 family -->
+      <div *ngIf="!hasFamilly" class="mt-5">
+        <!-- img -->
+        <div class="mb-4">
+          <img
+            src="../../../../assets/images/home_family.svg"
+            class="img-fluid home-family-svg"
+            alt=""
+            srcset=""
+          />
+        </div>
+        <!-- text -->
+        <div class="mb-3">
+          <!-- title -->
+          <span class="fs-4 text-center">Bienvenu a nouveau</span>
+          <p class="text-secondary mt-2">
+            Commence par rejoindre une famille, ou crée la tienne
+          </p>
+        </div>
+        <!-- buttons -->
+        <div class="d-flex flex-column flex-md-row justify-content-center">
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#rejoindre-famille-modal"
+            class="btn btn-outline-primary"
+          >
+            Rejoindre une famille
+          </button>
+          <span class="p-2"></span>
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#creer-famille-modal"
+            class="btn btn-outline-danger"
+          >
+            Créer une famille
+          </button>
+        </div>
+      </div>
+      <!-- if user has at least 1 familly -->
+      <div *ngIf="hasFamilly" class="p-0 mt-3">
+        <!-- search section -->
+        <div class="mb-3"></div>
+        <!-- famille item -->
+        <div
+          *ngFor="let f of familyList"
+          class="d-flex flex-row align-items-center card card-body hover-card-famille mb-2"
+        >
+          <!-- img -->
+          <img
+            src="../../../../assets/images/hero.jpg"
+            [src]="f.photo_profil"
+            alt=""
+            srcset=""
+            class="rounded-pill me-3 img-fluid"
+            style="
+              max-width: 90px;
+              max-height: 90px;
+              width: 100%;
+              height: auto;
+              aspect-ratio: 1 / 1;
+            "
+          />
+          <!-- text -->
+          <div class="d-flex flex-column align-items-start flex-fill">
+            <span class="mb-1 fw-bold fs-5">{{ f.nom }}</span>
+            <span class="text-secondary small text-start"
+              >Menre depuis xx/xx/xxxx</span
+            >
+          </div>
+          <!-- button -->
+          <button [matMenuTriggerFor]="familleMenu" mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #familleMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="go_to_detail_page(f)">
+              Consulter
+            </button>
+            <button mat-menu-item>Arbre généalogique</button>
+            <button mat-menu-item>Modifier</button>
+            <button
+              (click)="deleteFamily(null)"
+              mat-menu-item
+              color="warn"
+              class="text-danger"
+            >
+              Supprimer
+            </button>
+          </mat-menu>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -79,6 +178,7 @@
           Rejoindre une famille
         </h5>
         <button
+          [disabled]="isLoading_join_family"
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
@@ -104,10 +204,28 @@
         </mat-form-field>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button
+          [disabled]="isLoading_join_family"
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
           Fermer
         </button>
-        <button type="button" class="btn btn-primary">Rejoindre</button>
+        <button
+          (click)="rejoindreFamille()"
+          [disabled]="isLoading_join_family"
+          type="button"
+          class="btn btn-primary"
+        >
+          <div class="d-flex align-items-center">
+            <span
+              *ngIf="isLoading_join_family"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+            <span>{{ isLoading_join_family ? "" : "Rejoindre" }}</span>
+          </div>
+        </button>
       </div>
     </div>
   </div>
@@ -128,7 +246,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="creer-famille-modalLabel">
-          creer une famille
+          Créer une famille
         </h5>
         <button
           type="button"
@@ -165,7 +283,12 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Fermer
         </button>
-        <button [disabled]="isLoading_create_family" (click)="creerFamille()" type="button" class="btn btn-primary">
+        <button
+          [disabled]="isLoading_create_family"
+          (click)="creerFamille()"
+          type="button"
+          class="btn btn-primary"
+        >
           <span
             *ngIf="isLoading_create_family"
             class="spinner-border spinner-border-sm"

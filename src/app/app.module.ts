@@ -48,6 +48,8 @@ import { HomeComponent } from './Components/pages/home/home.component';
 import { AlertDialogComponent } from './Components/dialogs/alert-dialog/alert-dialog.component';
 import { MonProfilComponent } from './Components/pages/mon-profil/mon-profil.component';
 import { ImageSelectorOneComponent } from './Components/components/image-selector-one/image-selector-one.component';
+import { DetailFamilyComponent } from './Components/pages/detail-family/detail-family.component';
+import { FamilyTreeComponent } from './Components/pages/family-tree/family-tree.component';
 
 
 
@@ -64,7 +66,9 @@ import { ImageSelectorOneComponent } from './Components/components/image-selecto
     HomeComponent,
     AlertDialogComponent,
     MonProfilComponent,
-    ImageSelectorOneComponent
+    ImageSelectorOneComponent,
+    DetailFamilyComponent,
+    FamilyTreeComponent
   ],
   imports: [
     MatDividerModule,

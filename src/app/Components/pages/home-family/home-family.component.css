@@ -1,0 +1,13 @@
+.home-family-svg {
+    max-height: 300px;
+}
+
+.hover-card-famille:hover {
+    background-color: #f6f6f6;
+    transition: all ease 0.3s;
+}
+
+/* .hover-card-famille:hover {
+    background-color: #222222;
+    transition: all ease 0.3s;
+} */

@@ -1,0 +1,125 @@
+<!-- title -->
+<div class="mb-3">
+  <button
+    (click)="_router.navigateByUrl('/home/family')"
+    mat-button
+    class="bg-light small rounded-2"
+  >
+    <mat-icon>arrow_back</mat-icon>
+    Retour
+  </button>
+</div>
+<div
+  class="text-dark mb-2 sticky-top t-86 d-flex align-items-center bg-white pb-1 mb-2"
+  style="z-index: 996 !important"
+>
+  <button
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasExample"
+    aria-controls="offcanvasExample"
+    mat-icon-button
+    class="me-2 d-lg-none"
+  >
+    <mat-icon>sort</mat-icon>
+  </button>
+  <!-- img -->
+  <img
+    src="../../../../assets/images/hero.jpg"
+    alt=""
+    srcset=""
+    class="rounded-pill me-3 img-fluid"
+    style="
+      max-width: 90px;
+      max-height: 90px;
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      aspect-ratio: 1 / 1;
+    "
+  />
+  <span class="flex-fill fs-4"> Famille Leuna </span>
+</div>
+
+<!-- detail famille -->
+<div class="mb-3"></div>
+
+<div class="">
+  <mat-tab-group
+    color="warn"
+    disableRipple="true"
+    mat-stretch-tabs="false"
+    mat-align-tabs="start"
+  >
+    <mat-tab label="Membres">
+      <div class="mt-4">
+        <!-- text -->
+        <div
+          class="mb-3 text-secondary d-flex align-items-center flex-row justify-content-between"
+        >
+          <button
+            mat-stroked-button
+            color="warn"
+            class="btn-sm small border-danger"
+          >
+            Ajouter un membre
+          </button>
+        </div>
+
+        <!-- content -->
+        <table mat-table [dataSource]="dataSource" class="">
+          <!-- titre Column -->
+          <ng-container matColumnDef="titre">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+          </ng-container>
+
+          <!-- niveau Column -->
+          <ng-container matColumnDef="niveau">
+            <th mat-header-cell *matHeaderCellDef>Sexe</th>
+            <td mat-cell *matCellDef="let element">{{ element.niveau }}</td>
+          </ng-container>
+
+          <!-- chapitres Column -->
+          <ng-container matColumnDef="chapitre">
+            <th mat-header-cell *matHeaderCellDef>Date de naissance</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.nombreModule }}
+            </td>
+          </ng-container>
+
+          <!-- sujet Column -->
+          <ng-container matColumnDef="sujet">
+            <th mat-header-cell *matHeaderCellDef>Lieu de naissance</th>
+            <td mat-cell *matCellDef="let element">{{ element.sujets.nom }}</td>
+          </ng-container>
+
+          <!-- action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn btn-sm btn-outline-warning me-2">Voir</button>
+              <button class="btn btn-sm btn-outline-success me-2">
+                Consulter
+              </button>
+              <button class="btn btn-sm btn-outline-danger">Supprimer</button>
+            </td>
+            <!-- <td mat-cell *matCellDef="let element"></td> -->
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- paginator -->
+        <mat-paginator
+          class="mt-3"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Événements">Content 2</mat-tab>
+  </mat-tab-group>
+</div>
