@@ -28,6 +28,7 @@
 
     <span class="flex-fill fs-4"> Famille Leuna </span>
     <button
+      [disabled]="isLoading"
       data-bs-toggle="modal"
       data-bs-target="#fullscreen-tree-modal"
       mat-icon-button
@@ -37,8 +38,19 @@
     </button>
   </div>
 
+  <!-- skeleton -->
+  <!-- <div *ngIf="isLoading" class="container-fluid mt-3 h-100 placeholder-glow">
+    <span
+      class="placeholder col-12 flex-fill h-100 rounded-2"
+      style="height: 600px !important"
+    ></span>
+  </div> -->
+
   <!-- tree default-->
-  <div id="tree" class="container-fluid mt-3 flex-fill"></div>
+  <div
+    id="tree"
+    class="container-fluid mt-3 flex-fill "
+  ></div>
 
   <!-- full screen -->
   <div

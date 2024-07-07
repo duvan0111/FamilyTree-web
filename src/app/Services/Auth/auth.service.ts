@@ -15,6 +15,25 @@ export class AuthService {
 
   user!: any;
 
+  /**
+   * 
+   * @param element set value of user 
+   */
+  setUser(element: any) {
+    this.user = element;
+    sessionStorage.setItem('familytree-user', JSON.stringify(element));
+  }
+
+  /**
+   * get Value of current user
+   */
+  getUser() {
+    let userStr = sessionStorage.getItem('familytree-user');
+    if (userStr) {
+      this.user = JSON.parse(userStr);
+    }
+  }
+
   login(pseudo: string, password: string): Observable<any> {
     let url = this._appService.baseUrl + "/api/auth/login";
     let data = {
@@ -22,7 +41,6 @@ export class AuthService {
       password: password
     }
     return this._http.post<any>(url, data);
-
   }
 
   register(formdata: any): Observable<any> {

@@ -25,8 +25,7 @@
     </button>
     <span class="p-2"></span>
     <button
-      data-bs-toggle="modal"
-      data-bs-target="#creer-famille-modal"
+      (click)="openFamilyDialog('add', null)"
       class="btn btn-outline-danger"
     >
       Créer une famille
@@ -80,7 +79,7 @@
         <!-- text -->
         <div class="mb-3">
           <!-- title -->
-          <span class="fs-4 text-center">Bienvenu a nouveau</span>
+          <span class="fs-4 text-center">Bienvenu sur FamilyTree</span>
           <p class="text-secondary mt-2">
             Commence par rejoindre une famille, ou crée la tienne
           </p>
@@ -96,8 +95,7 @@
           </button>
           <span class="p-2"></span>
           <button
-            data-bs-toggle="modal"
-            data-bs-target="#creer-famille-modal"
+            (click)="openFamilyDialog('add', null)"
             class="btn btn-outline-danger"
           >
             Créer une famille
@@ -108,6 +106,21 @@
       <div *ngIf="hasFamilly" class="p-0 mt-3">
         <!-- search section -->
         <div class="mb-3"></div>
+
+        <!-- search input -->
+        <div class="w-100 d-flex justify-content-start">
+          <mat-form-field appearance="outline" class="mt-2">
+            <mat-label>Rechercher</mat-label>
+            <input
+              matInput
+              placeholder="Identifiant"
+            />
+            <mat-icon class="text-secondary" matPrefix
+              >search</mat-icon
+            >
+          </mat-form-field>
+        </div>
+
         <!-- famille item -->
         <div
           *ngFor="let f of familyList"
@@ -116,7 +129,7 @@
           <!-- img -->
           <img
             src="../../../../assets/images/hero.jpg"
-            [src]="f.photo_profil"
+            [src]="_appService.baseUrl + '/' + f.photo_profil_path"
             alt=""
             srcset=""
             class="rounded-pill me-3 img-fluid"
@@ -130,10 +143,10 @@
           />
           <!-- text -->
           <div class="d-flex flex-column align-items-start flex-fill">
-            <span class="mb-1 fw-bold fs-5">{{ f.nom }}</span>
-            <span class="text-secondary small text-start"
-              >Menre depuis xx/xx/xxxx</span
-            >
+            <span class="mb-1 fw-bold fs-5">{{ f.name }}</span>
+            <span class="text-secondary small text-start">{{
+              f.members_count + " Membre(s)"
+            }}</span>
           </div>
           <!-- button -->
           <button [matMenuTriggerFor]="familleMenu" mat-icon-button>
@@ -143,10 +156,21 @@
             <button mat-menu-item (click)="go_to_detail_page(f)">
               Consulter
             </button>
-            <button mat-menu-item>Arbre généalogique</button>
-            <button mat-menu-item>Modifier</button>
+            <a
+              target="_blank"
+              routerLink="{{
+                '/api/families/' + f.id + '/tree/' + _authService.user.token
+              }}"
+              (click)="go_to_tree_page(f)"
+              mat-menu-item
+            >
+              Arbre généalogique
+            </a>
+            <button (click)="openFamilyDialog('edit', f)" mat-menu-item>
+              Modifier
+            </button>
             <button
-              (click)="deleteFamily(null)"
+              (click)="deleteFamily(f)"
               mat-menu-item
               color="warn"
               class="text-danger"
@@ -285,7 +309,6 @@
         </button>
         <button
           [disabled]="isLoading_create_family"
-          (click)="creerFamille()"
           type="button"
           class="btn btn-primary"
         >

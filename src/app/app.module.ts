@@ -50,6 +50,11 @@ import { MonProfilComponent } from './Components/pages/mon-profil/mon-profil.com
 import { ImageSelectorOneComponent } from './Components/components/image-selector-one/image-selector-one.component';
 import { DetailFamilyComponent } from './Components/pages/detail-family/detail-family.component';
 import { FamilyTreeComponent } from './Components/pages/family-tree/family-tree.component';
+import { FamilyDialogComponent } from './Components/dialogs/family-dialog/family-dialog.component';
+import { ShowTreeFromMobileComponent } from './Components/pages/show-tree-from-mobile/show-tree-from-mobile.component';
+import { MemberDialogComponent } from './Components/dialogs/member-dialog/member-dialog.component';
+import { RedirectPageComponent } from './Components/pages/redirect-page/redirect-page.component';
+import { ErrorRedirectPageComponent } from './Components/pages/error-redirect-page/error-redirect-page.component';
 
 
 
@@ -68,7 +73,12 @@ import { FamilyTreeComponent } from './Components/pages/family-tree/family-tree.
     MonProfilComponent,
     ImageSelectorOneComponent,
     DetailFamilyComponent,
-    FamilyTreeComponent
+    FamilyTreeComponent,
+    FamilyDialogComponent,
+    ShowTreeFromMobileComponent,
+    MemberDialogComponent,
+    RedirectPageComponent,
+    ErrorRedirectPageComponent
   ],
   imports: [
     MatDividerModule,

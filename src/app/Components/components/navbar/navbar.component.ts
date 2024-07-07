@@ -66,14 +66,13 @@ export class NavbarComponent {
 
   logout() {
     // code ...
-    sessionStorage.removeItem('familytree-user');
+    sessionStorage.clear();
     this._router.navigateByUrl('/');
+   
   }
 
   ngOnInit() {
     this.initUserData();
   }
-
-
 
 }

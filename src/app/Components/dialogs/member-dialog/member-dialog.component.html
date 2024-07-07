@@ -1,0 +1,62 @@
+<div class="row">
+  <!-- pseudo -->
+  <div class="col-md-6">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Pseudo</mat-label>
+      <input matInput placeholder="Pseudo" />
+    </mat-form-field>
+  </div>
+
+  <!-- name -->
+  <div class="col-md-6">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nom</mat-label>
+      <input matInput placeholder="Votre nom" />
+    </mat-form-field>
+  </div>
+
+  <!-- sexe -->
+  <div class="col-md-6">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Sexe</mat-label>
+      <mat-select
+        placeholder="Selectionner une valeur"
+      >
+        <mat-option [value]="'homme'">Masculin</mat-option>
+        <mat-option [value]="'femme'">Féminin</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Téléphone -->
+  <div class="col-md-6">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Téléphone (9 chiffres)</mat-label>
+      <input
+        inputmode="tel"
+        matInput
+        placeholder="Téléphone"
+      />
+    </mat-form-field>
+  </div>
+ 
+
+
+  <!-- button -->
+  <div class="col-md-12 text-center">
+    <button
+      color="warn"
+      mat-raised-button
+      class="w-100"
+      [disabled]="isLoading"
+    >
+      <div class="d-flex align-items-center">
+        <span
+          *ngIf="isLoading"
+          class="spinner-border spinner-border-sm me-2"
+        ></span>
+        {{ isLoading ? "Inscription" : "S'inscrire" }}
+      </div>
+    </button>
+  </div>
+</div>

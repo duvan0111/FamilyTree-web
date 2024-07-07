@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,19 @@ export class HomeComponent {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 0;
+  }
+
+  constructor(
+    protected _authService: AuthService
+  ) { }
+
+  logout() {
+    sessionStorage.clear();
+    location.reload();
+  }
+
+  ngOnInit() {
+    this._authService.getUser();
   }
 
 }

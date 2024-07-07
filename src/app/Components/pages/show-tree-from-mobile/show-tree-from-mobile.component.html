@@ -1,0 +1,20 @@
+<div class="d-flex flex-column mb-4">
+  <!-- skeleton -->
+  <div *ngIf="isLoading" class="container-fluid mt-3 h-100 placeholder-glow">
+    <span
+      class="placeholder col-12 flex-fill h-100 rounded-2"
+      style="height: 600px !important"
+    ></span>
+  </div>
+
+  <!-- full screen -->
+  <div class="d-{{ isLoading ? 'none' : 'bloc' }}">
+    <div class="p-4">
+      <h5 class="" id="fullscreen-tree-modalLabel">
+        Arbre généalogique - Famille {{ familyName }}
+      </h5>
+    </div>
+
+    <div id="tree" class="vh-100"></div>
+  </div>
+</div>

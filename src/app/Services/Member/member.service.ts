@@ -63,7 +63,7 @@ export class MemberService {
     return this._http.get<any>(url, { headers });
   }
 
-  deleteFamilyNenber(idFamily: number, idMember: number, token: string): Observable<any> {
+  deleteFamilyMember(idFamily: number, idMember: number, token: string): Observable<any> {
     let url = this._appService.baseUrl + "/api/families/" + idFamily + "/members/" + idMember + "/parents";
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.delete<any>(url, { headers });

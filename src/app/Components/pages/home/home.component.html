@@ -8,12 +8,23 @@
     <h1 class="logo"><a routerLink="/">Family.Tree</a></h1>
 
     <nav id="navbar" class="navbar">
-      <ul>
+      <ul *ngIf="!_authService.user">
         <li>
           <a class="nav-link" routerLink="/authentification">Se connecter</a>
         </li>
         <li>
           <a class="nav-link" routerLink="/authentification">S'inscrire</a>
+        </li>
+      </ul>
+      <ul *ngIf="_authService.user">
+        <li class="text-white">Hi {{ _authService.user.user.name }}</li>
+        <li>
+          <a class="nav-link" routerLink="/home/family">Tableau de bord</a>
+        </li>
+        <li>
+          <a class="nav-link" (click)="logout()" style="cursor: pointer"
+            >Se deconnecter</a
+          >
         </li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>

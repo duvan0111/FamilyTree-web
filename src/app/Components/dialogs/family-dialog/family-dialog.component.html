@@ -1,0 +1,68 @@
+<!-- Header -->
+<div
+  class="fw-bold text-start d-flex pt-2 pb-2 ps-3 pe-3 justify-content-between align-items-center"
+>
+  <span class="me-4" [hidden]="mode == 'edit'">Créer une famille</span>
+  <span class="me-4" [hidden]="mode == 'add'">Modifier une famille</span>
+
+  <button mat-button [mat-dialog-close]="false" class="text-center">
+    <mat-icon class="me-0">close</mat-icon>
+  </button>
+</div>
+
+<!-- Content -->
+<mat-dialog-content class="mat-typography pb-1 p-3">
+  <div class="row">
+    <!-- imgage selector -->
+    <div class="mb-4">
+      <app-image-selector-one></app-image-selector-one>
+    </div>
+
+    <!-- nom famille -->
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nom de la famille</mat-label>
+      <input
+        [formControl]="nomFamilleFormcontrol"
+        [errorStateMatcher]="matcher"
+        [(ngModel)]="nomFamille"
+        matInput
+        placeholder="Entrer le nom de la famille"
+      />
+      <span matPrefix class="me-2 ms-3">Famille </span>
+      <mat-error
+        class="small mt-2"
+        *ngIf="nomFamilleFormcontrol.hasError('required')"
+      >
+        Veuillez saisir un nom
+      </mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<!-- Button action -->
+<mat-dialog-actions align="end" class="p-3 pt-1">
+  <button
+    class="{{ _loaderService.isLoading ? '' : ' primary-light-button' }}"
+    mat-button
+    [hidden]="mode == 'show'"
+    (click)="valid()"
+    [disabled]="_loaderService.isLoading"
+  >
+    <div class="d-flex align-items-center"></div>
+    <span
+      *ngIf="_loaderService.isLoading"
+      class="spinner-border spinner-border-sm me-2"
+    ></span>
+
+    {{ _loaderService.isLoading ? "Traitement" : "Enregistrer" }}
+  </button>
+
+  <button
+    [disabled]="_loaderService.isLoading"
+    class="primary-dark-button"
+    mat-button
+    [mat-dialog-close]="false"
+  >
+    Annuler
+  </button>
+</mat-dialog-actions>

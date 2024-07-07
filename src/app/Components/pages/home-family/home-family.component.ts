@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/Services/Auth/auth.service';
 import { FamilyService } from 'src/app/Services/Family/family.service';
 import { ImageService } from 'src/app/Services/Image/image.service';
 import { DeleteComponent } from '../../dialogs/delete/delete.component';
+import { FamilyDialogComponent } from '../../dialogs/family-dialog/family-dialog.component';
+import { AppService } from 'src/app/Services/app/app.service';
 
 @Component({
   selector: 'app-home-family',
@@ -23,7 +25,8 @@ export class HomeFamilyComponent {
     private _imageService: ImageService,
     private _notifierService: NotifierService,
     private _router: Router,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    protected _appService: AppService
   ) { }
 
   isLoading_create_family = false;
@@ -60,8 +63,8 @@ export class HomeFamilyComponent {
 
   go_to_tree_page(element: any) {
     // code ...
-    this._familyService.setCurrent(element);
-    this._router.navigateByUrl('/home/family/tree');
+    // this._familyService.setCurrent(element);
+    // this._router.navigateByUrl('/home/family/tree');
   }
 
   /**
@@ -71,7 +74,7 @@ export class HomeFamilyComponent {
   deleteFamily(element: any) {
     let dialog = this._dialog.open(DeleteComponent, {
       data: {
-        title: "Nom de la famille ...",
+        title: element.name + '',
         message: "Confirmer la suppréssion de cette famille ?"
       }
     });
@@ -101,6 +104,27 @@ export class HomeFamilyComponent {
   }
 
   /**
+   * 
+   * @param element Handle add/edit family request
+   */
+  openFamilyDialog(mode: string, element: any) {
+    let dialog = this._dialog.open(FamilyDialogComponent, {
+      data: {
+        mode: mode,
+        element: element
+      }, maxWidth: 600
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.getFamilles();
+      }
+
+    });
+  }
+
+  /**
    * Handle get user families request
    */
   getFamilles() {
@@ -119,10 +143,14 @@ export class HomeFamilyComponent {
       ).subscribe(response => {
 
         // top loader
-        this.isLoading_get_family = true;
+        this.isLoading_get_family = false;
 
         // set data
-        this.familyList = response.data;
+        this.familyList = response;
+
+        // set boolean
+        this.hasFamilly = this.familyList.length > 0;
+
 
         // log 
         console.log(response);
@@ -138,47 +166,6 @@ export class HomeFamilyComponent {
 
       console.error(error);
     }
-  }
-
-  /**
-   * Handle create user family request
-   */
-  creerFamille() {
-    if (this.nomFamilleFormcontrol.valid) {
-      console.log('arrive');
-
-      try {
-        this.isLoading_create_family = true;
-        let f = new FormData();
-        f = this._imageService.formDateCurrentImage;
-        f.append('name', this.nomFamille);
-        this._familyService.creer(f, this._authService.user.token).pipe(
-          catchError((error: HttpErrorResponse) => {
-            this.isLoading_create_family = false;
-            if (error.status !== 200) {
-              // display error
-              this._notifierService.notify('error', 'Une erreur est survenue.');
-              console.error(error);
-            }
-            return throwError(error);
-          })
-        ).subscribe(response => {
-          this.isLoading_create_family = false;
-
-          // notify
-          this._notifierService.notify('success', 'La famille ' + this.nomFamille + " a été ajouté avec succès");
-          console.error(response);
-
-        });
-
-      } catch (error) {
-        this.isLoading_create_family = false;
-
-        this._notifierService.notify('error', 'Une erreur est survenue');
-        console.error(error);
-      }
-    }
-
   }
 
   /**

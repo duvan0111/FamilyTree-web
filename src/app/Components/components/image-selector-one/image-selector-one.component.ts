@@ -36,4 +36,9 @@ export class ImageSelectorOneComponent {
     }
   }
 
+  fileBrowseHandler(event: any) {
+    console.log(event.target.files);
+
+  }
+
 }

@@ -33,7 +33,7 @@ export class FamilyService {
   getCurrent() {
     let familyStr = localStorage.getItem('familytree-current-family');
     if (familyStr) {
-      this.currentFamily = JSON.parse(JSON.stringify(familyStr));
+      this.currentFamily = JSON.parse(familyStr);
     }
   }
 
@@ -58,6 +58,13 @@ export class FamilyService {
     console.log(token);
 
     let url = this._appService.baseUrl + "/api/families/";
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get<any>(url, { headers });
+  }
+
+  getById(id: number, token: string): Observable<any> {
+    console.log(id);
+    let url = this._appService.baseUrl + "/api/families/" + id;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.get<any>(url, { headers });
   }

@@ -122,7 +122,8 @@ export class AuthComponent {
           this.isLoading_login = false;
 
           // save user on session
-          sessionStorage.setItem('familytree-user', JSON.stringify(res));
+          // sessionStorage.setItem('familytree-user', JSON.stringify(res));
+          this._authService.setUser(res);
 
           // go to home page
           this._router.navigateByUrl('/home/family');
